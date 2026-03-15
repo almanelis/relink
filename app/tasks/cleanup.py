@@ -11,6 +11,14 @@ from app.services.cache import cache_delete
 settings = get_settings()
 
 
+def _as_utc(value: datetime | None) -> datetime | None:
+    if value is None:
+        return None
+    if value.tzinfo is None:
+        return value.replace(tzinfo=UTC)
+    return value.astimezone(UTC)
+
+
 async def _archive_link(session: AsyncSession, link: Link, reason: str) -> None:
     session.add(
         ExpiredLink(
@@ -42,8 +50,9 @@ async def cleanup_links(session: AsyncSession) -> int:
 
     removed = 0
     for link in links:
+        link_expires_at = _as_utc(link.expires_at)
         reason = "expired"
-        if link.expires_at is None or link.expires_at > now:
+        if link_expires_at is None or link_expires_at > now:
             reason = "inactive"
         await _archive_link(session, link, reason)
         removed += 1
