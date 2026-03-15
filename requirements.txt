@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+asyncpg
+redis
+pydantic-settings
+python-jose[cryptography]
+passlib
+email-validator
