@@ -1,0 +1,37 @@
+Name                            Stmts   Miss  Cover   Missing
+-------------------------------------------------------------
+app/__init__.py                     0      0   100%
+app/api/__init__.py                 0      0   100%
+app/api/auth.py                    26      0   100%
+app/api/links.py                  105      5    95%   40, 48, 129-130, 169
+app/core/__init__.py                0      0   100%
+app/core/config.py                 20      0   100%
+app/core/security.py               21      0   100%
+app/db/__init__.py                  0      0   100%
+app/db/base.py                      5      0   100%
+app/db/session.py                   9      2    78%   14-15
+app/dependencies/__init__.py        0      0   100%
+app/dependencies/auth.py           20      2    90%   20, 22
+app/models/__init__.py              0      0   100%
+app/models/base.py                  3      0   100%
+app/models/expired_link.py         14      0   100%
+app/models/link.py                 16      0   100%
+app/models/user.py                 11      0   100%
+app/schemas/__init__.py             0      0   100%
+app/schemas/auth.py                10      0   100%
+app/schemas/link.py                29      1    97%   15
+app/services/__init__.py            0      0   100%
+app/services/cache.py              39     11    72%   21-23, 28, 32-34, 39, 42-43, 51, 54-55
+app/services/shortener.py           5      0   100%
+app/tasks/__init__.py               0      0   100%
+app/tasks/cleanup.py               34      1    97%   19
+tests/conftest.py                  56      0   100%
+tests/test_api_direct_unit.py     135      0   100%
+tests/test_auth_api.py             19      0   100%
+tests/test_cache_unit.py           36      0   100%
+tests/test_cleanup_unit.py         27      0   100%
+tests/test_links_api.py            80      0   100%
+tests/test_security_unit.py        13      0   100%
+tests/test_shortener_unit.py       11      0   100%
+-------------------------------------------------------------
+TOTAL                             744     22    97%

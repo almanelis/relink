@@ -16,20 +16,31 @@ async def init_cache() -> None:
 
 async def close_cache() -> None:
     if redis_client is not None:
-        await redis_client.close()
+        try:
+            await redis_client.close()
+        except Exception:
+            # если редис временно недоступен, не валим graceful shutdown.
+            return
 
 
 async def cache_set(key: str, value: Any, ttl: int | None = None) -> None:
     if redis_client is None:
         return
     data = json.dumps(value, default=str)
-    await redis_client.set(key, data, ex=ttl or settings.cache_ttl_seconds)
+    try:
+        await redis_client.set(key, data, ex=ttl or settings.cache_ttl_seconds)
+    except Exception:
+        # деградируем в no-cache режим, но endpoint продолжает работать.
+        return
 
 
 async def cache_get(key: str) -> Any | None:
     if redis_client is None:
         return None
-    data = await redis_client.get(key)
+    try:
+        data = await redis_client.get(key)
+    except Exception:
+        return None
     if data is None:
         return None
     return json.loads(data)
@@ -38,4 +49,7 @@ async def cache_get(key: str) -> Any | None:
 async def cache_delete(*keys: str) -> None:
     if redis_client is None or not keys:
         return
-    await redis_client.delete(*keys)
+    try:
+        await redis_client.delete(*keys)
+    except Exception:
+        return

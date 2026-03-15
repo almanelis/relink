@@ -113,3 +113,12 @@ curl "http://localhost:8000/links/search?original_url=https://www.python.org"
   `short_code`, `original_url`, `created_at`, `removed_at`, `click_count`, `owner_id`, `reason`.
 
 Redis используется для кэширования часто запрашиваемых данных (`stats` и redirect-данные).
+
+## Тестирование
+
+- тесты лежат в `tests/`.
+- инструкция запуска: `TESTING.md`.
+- нагрузочный сценарий: `locustfile.py`.
+- отчет по нагрузке: `LOAD_TEST_REPORT.md`.
+- отчет по покрытию (без запуска кода): `COVERAGE_REPORT.md`.
+- текстовый снимок покрытия: `coverage_report.txt`.
